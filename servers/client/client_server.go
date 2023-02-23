@@ -1,7 +1,6 @@
 package client
 
 import (
-	"fmt"
 	"net"
 	"xsstrack/servers/web"
 )
@@ -10,28 +9,25 @@ func RunClientServer() {
 
 	*isRequestReceived = false
 
-	srvInfo := serverInfo{
+	SrvInfo := serverInfo{
 		comType: "tcp",
-		addr:    "localhost:8800",
+		addr:    "localhost:8989",
 	}
 
-	srv, _ := net.Listen(srvInfo.comType, srvInfo.addr)
-
-	fmt.Println("Server UP, waiting for connexion")
-
-	conn, _ := srv.Accept()
-	fmt.Println("Client Connected")
-
 	for {
+		go waitNewClient(SrvInfo)
 		if *isRequestReceived == true {
-			sendDataToClient(conn, *receivedData)
 			*isRequestReceived = false
+			for client := web.HandledClientList.Front(); client != nil; client = client.Next() {
+				clientConn := client.Value.(web.HandledClient)
+				sendDataToClient(clientConn.ClientConn, *receivedData)
+			}
 		}
 	}
 }
 
 func sendDataToClient(conn net.Conn, receivedData web.RequestDataStruct) {
-	_, _ = conn.Write([]byte(receivedData.Url))
-	_, _ = conn.Write([]byte(receivedData.Header))
-	_, _ = conn.Write([]byte(receivedData.Body))
+	conn.Write([]byte(receivedData.Url))
+	conn.Write([]byte(receivedData.Header))
+	conn.Write([]byte(receivedData.Body))
 }
