@@ -14,11 +14,8 @@ type serverInfo struct {
 var receivedData = &web.RequestData
 var isRequestReceived = &web.IsRequestReceived
 
-func waitNewClient(srvInfo serverInfo) {
+func waitNewClient(srv net.Listener) {
 	for {
-		srv, _ := net.Listen(srvInfo.comType, srvInfo.addr)
-		fmt.Println("Server UP, waiting for connexion")
-
 		conn, _ := srv.Accept()
 
 		buffer := make([]byte, 1024)
