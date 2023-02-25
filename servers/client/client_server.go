@@ -12,7 +12,7 @@ func RunClientServer() {
 
 	SrvInfo := serverInfo{
 		comType: "tcp",
-		addr:    "localhost:8800",
+		addr:    "0.0.0.0:8800",
 	}
 
 	srv, err := net.Listen(SrvInfo.comType, SrvInfo.addr)
