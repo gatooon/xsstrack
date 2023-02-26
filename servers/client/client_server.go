@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"xsstrack/servers/web"
+	"strings"
 )
 
 func RunClientServer() {
@@ -26,7 +27,7 @@ func RunClientServer() {
 			*isRequestReceived = false
 			for client := web.HandledClientList.Front(); client != nil; client = client.Next() {
 				clientConn := client.Value.(web.HandledClient)
-				if "/"+clientConn.UrlListening == receivedData.Url {
+				if strings.HasPrefix(receivedData.Url, "/"+clientConn.UrlListening) {
 					IsClientAlive := sendDataToClient(clientConn.ClientConn, *receivedData)
 					if IsClientAlive == false {
 						web.HandledClientList.Remove(client)
