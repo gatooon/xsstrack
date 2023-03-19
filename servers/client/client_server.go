@@ -3,7 +3,6 @@ package client
 import (
 	"fmt"
 	"net"
-	"strings"
 	"xsstrack/servers/web"
 )
 
@@ -27,11 +26,9 @@ func RunClientServer() {
 			*isRequestReceived = false
 			for client := web.HandledClientList.Front(); client != nil; client = client.Next() {
 				clientConn := client.Value.(web.HandledClient)
-				if strings.HasPrefix(receivedData.Url, "/"+clientConn.UrlListening) || strings.HasPrefix(receivedData.Url, "/payloads/") {
-					IsClientAlive := sendDataToClient(clientConn.ClientConn, *receivedData)
-					if IsClientAlive == false {
-						web.HandledClientList.Remove(client)
-					}
+				IsClientAlive := sendDataToClient(clientConn.ClientConn, *receivedData)
+				if IsClientAlive == false {
+					web.HandledClientList.Remove(client)
 				}
 			}
 		}

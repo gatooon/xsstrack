@@ -6,5 +6,5 @@ import (
 
 func RunHttpServer() {
 	http.HandleFunc("/", catch)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":80", nil)
 }

@@ -14,7 +14,6 @@ type RequestDataStruct struct {
 
 type HandledClient struct {
 	IsClientInfoReceived bool
-	UrlListening         string
 	ClientConn           net.Conn
 }
 
@@ -22,6 +21,7 @@ var RequestData RequestDataStruct
 
 var HandledClientList list.List
 var IsRequestReceived bool
+var documentType string
 
 func convertHeaderToString(inputMap map[string][]string) (outputString string) {
 	data, _ := json.Marshal(inputMap)
