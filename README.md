@@ -26,10 +26,9 @@ folder have to be named "web" and "payloads"
 export XSSTRACK_PAYLOADS_FOLDER<br>
 export XSSTRACK_WEB_FOLDER<br>
 
-don't add "/" at the end of path<br>
 exemples:<br>
-/home/ping/web/ -> export XSSTRACK_WEB_FOLDER="/home/ping"<br>
-/home/pong/payloads/ -> export XSSTRACK_PAYLODS_FOLDER="/home/pong"
+/home/ping/web/ -> export XSSTRACK_WEB_FOLDER="/home/ping/"<br>
+/home/pong/payloads/ -> export XSSTRACK_PAYLODS_FOLDER="/home/pong/"
 
 # Run client
 Clone and build the following project:<br>
